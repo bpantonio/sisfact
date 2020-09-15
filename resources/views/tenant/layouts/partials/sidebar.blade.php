@@ -53,6 +53,7 @@
                         {{ ($path[0] === 'technical-services')?'nav-active nav-expanded':'' }}
                         {{ ($path[0] === 'user-commissions')?'nav-active nav-expanded':'' }}
                         {{ ($path[0] === 'regularize-shipping')?'nav-active nav-expanded':'' }}
+                        {{ ($path[0] === 'item-lots')?'nav-active nav-expanded':'' }}
                         
                         ">
                         <a class="nav-link" href="#">
@@ -122,6 +123,7 @@
                                         {{ ($path[0] === 'items')?'nav-active nav-expanded':'' }}
                                         {{ ($path[0] === 'categories')?'nav-active nav-expanded':'' }}
                                         {{ ($path[0] === 'brands')?'nav-active nav-expanded':'' }}
+                                        {{ ($path[0] === 'item-lots')?'nav-active nav-expanded':'' }}
                                         {{ ($path[0] === 'person-types')?'nav-active nav-expanded':'' }}
                                         {{ ($path[0] === 'persons' && $path[1] === 'customers')?'nav-active nav-expanded':'' }}
                                         ">
@@ -143,6 +145,11 @@
                                             <li class="{{ ($path[0] === 'brands')?'nav-active':'' }}">
                                                 <a class="nav-link" href="{{route('tenant.brands.index')}}">
                                                     Marcas
+                                                </a>
+                                            </li>
+                                            <li class="{{ ($path[0] === 'item-lots')?'nav-active':'' }}">
+                                                <a class="nav-link" href="{{route('tenant.item-lots.index')}}">
+                                                    Series
                                                 </a>
                                             </li>
                                             <li class="{{ ($path[0] === 'persons' && $path[1] === 'customers')?'nav-active':'' }}">
@@ -302,7 +309,7 @@
                                 </li>
                                 <li class="{{ ($path[0] === 'cash'  )?'nav-active':'' }}">
                                     <a class="nav-link" href="{{route('tenant.cash.index')}}">
-                                        Caja chica
+                                        Caja chica POS
                                     </a>
                                 </li>
                                 <li class="{{ ($path[0] === 'item-sets'  )?'nav-active':'' }}">
@@ -785,7 +792,7 @@
                     @if(in_array('finance', $vc_modules))
 
                     <li class="nav-parent {{$path[0] === 'finances' && in_array($path[1], [
-                                                'global-payments', 'balance','payment-method-types', 'unpaid', 'to-pay', 'income'
+                                                'global-payments', 'balance','payment-method-types', 'unpaid', 'to-pay', 'income', 'movements'
                                             ])
                                             ? 'nav-active nav-expanded' : ''}}">
 
@@ -808,6 +815,11 @@
                             <li class="{{(($path[0] === 'finances') && ($path[1] == 'payment-method-types')) ? 'nav-active' : ''}}">
                                 <a class="nav-link" href="{{route('tenant.finances.payment_method_types.index')}}">
                                     Ingresos y Egresos - M. Pago
+                                </a>
+                            </li>
+                            <li class="{{(($path[0] === 'finances') && ($path[1] == 'movements')) ? 'nav-active' : ''}}">
+                                <a class="nav-link" href="{{route('tenant.finances.movements.index')}}">
+                                    Movimientos
                                 </a>
                             </li>
                             <li class="{{(($path[0] === 'finances') && ($path[1] == 'unpaid')) ? 'nav-active' : ''}}">
