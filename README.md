@@ -1,4 +1,4 @@
-<img src="icon_pro3.jpg" width="420">
+<img src="icon_pro3.jpg" width="320">
 
 # **Facturador PRO3**
 
