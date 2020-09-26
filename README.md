@@ -30,6 +30,14 @@
 [Manejo del Sistema](https://docs.google.com/document/d/19P6zHQsJTiM7NtTBUSRd61YAJwwM4q47PI3q-Fnjne4/edit?usp=sharing "Clic")<br>
 [Manual de Tareas Programadas](https://docs.google.com/document/d/1nvhUiQZQps3hMGvIkofR1DBTJrCKfcLfyV49Ul3D90s/edit?usp=sharing "Clic")<br>
 
+### Plugin Wordpress - Ecommerce
+
+[Manual de Integración](https://docs.google.com/document/d/1nskYtpbgd7zuuSrMecdNA65YUmg_HeCSWQkan0fa6oE/edit?usp=sharing "Clic")<br>
+[Manual de Usuario](https://docs.google.com/document/d/1ISJOSHCxtg0luHS56PitcnV9riXNfmy6CsCTFd4jx5w/edit?usp=sharing "Clic")<br>
+[Manual de Plugin-Wordpress-Woocommerce](https://docs.google.com/document/d/1l1YGMu1ihljaRuXNY03T7XgKydt8KlL4jVhauQuujKU/edit?usp=sharing "Clic")<br>
+[Descarga de Plugin](https://drive.google.com/file/d/1iMp_Tdaxumxa4DdV8DJyIXck8_uDA6mj/view?usp=sharing "Clic")<br>
+
+
 ## API
 
 [Documentación](https://docs.google.com/document/d/1szmUQg9Ce5JoS1ubiPeZA459q58fJrBpSTnMayxZqH4/edit?usp=sharing "Clic")<br>
