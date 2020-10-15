@@ -603,6 +603,8 @@
               document.querySelector('.sidebar-toggle').click()
           }
 
+          await this.selectDefaultCustomer()
+
         },
 
         computed:{
@@ -736,9 +738,17 @@
             form_pos = JSON.parse(form_pos)
             if (form_pos) {
               this.form = form_pos
+              this.initDateTimeIssue()
               // this.calculateTotal()
             }
 
+          },
+          initDateTimeIssue(){
+            
+              this.form.date_of_issue = moment().format("YYYY-MM-DD")
+              this.form.time_of_issue = moment().format("HH:mm:ss")
+              this.form.date_of_due = moment().format("YYYY-MM-DD")
+              
           },
           setFormPosLocalStorage(form_param = null){
 
@@ -910,13 +920,17 @@
           },
           changeCustomer() {
 
-            console.log('clien 13')
-
+            // console.log('clien 13')
 
             let customer = _.find(this.all_customers, { id: this.form.customer_id });
             this.customer = customer;
-            // this.form.document_type_id = customer.identity_document_type_id == "1" ? "03" : "01";
-            this.form.document_type_id = "03";
+
+            if(this.configuration.default_document_type_03){
+              this.form.document_type_id = "03";
+            }else{
+              this.form.document_type_id = customer.identity_document_type_id == "6" ? "01":"03";
+            }
+
             this.setLocalStorageIndex('customer', this.customer)
             this.setFormPosLocalStorage()
 
@@ -952,6 +966,7 @@
               this.initForm();
               this.changeExchangeRate()
               this.cancelFormPosLocalStorage()
+              this.selectDefaultCustomer()
               this.$nextTick(() => {
                 this.initFocus();
               });
@@ -1188,6 +1203,8 @@
               duration: 700
             });
 
+            this.cleanInput()
+            this.initFocus()
 
             // console.log(this.row)
             // console.log(this.form.items)
@@ -1299,6 +1316,14 @@
               this.changeDateOfIssue();
               this.changeExchangeRate()
             });
+          },
+          selectDefaultCustomer(){
+
+              if(this.establishment.customer_id && !this.form.customer_id){
+                  this.form.customer_id = this.establishment.customer_id
+                  this.changeCustomer()
+              }
+
           },
           renderCategories(source)
           {

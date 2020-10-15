@@ -90,6 +90,23 @@
                                 </div>
                             </div>
 
+                            <div class="col-md-6 mt-4">
+                                <label class="control-label">Impuesto incluido en registro de productos</label>
+                                <div class="form-group" :class="{'has-danger': errors.include_igv}">
+                                    <el-switch v-model="form.include_igv" active-text="Si" inactive-text="No" @change="submit"></el-switch>
+                                    <small class="form-control-feedback" v-if="errors.include_igv" v-text="errors.include_igv[0]"></small>
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-6 mt-4">
+                                <label class="control-label">Caja General seleccionada por defecto</label>
+                                <div class="form-group" :class="{'has-danger': errors.destination_sale}">
+                                    <el-switch v-model="form.destination_sale" active-text="Si" inactive-text="No" @change="submit"></el-switch>
+                                    <small class="form-control-feedback" v-if="errors.destination_sale" v-text="errors.destination_sale[0]"></small>
+                                </div>
+                            </div>
+
                         </div>
                         <div class="row">
                             <div class="col-md-12">
@@ -145,13 +162,6 @@
                         </div>
                         <div class="row">
                             <div class="col-md-6 mt-4">
-                                <label class="control-label">Impuesto incluido en registro de productos</label>
-                                <div class="form-group" :class="{'has-danger': errors.include_igv}">
-                                    <el-switch v-model="form.include_igv" active-text="Si" inactive-text="No" @change="submit"></el-switch>
-                                    <small class="form-control-feedback" v-if="errors.include_igv" v-text="errors.include_igv[0]"></small>
-                                </div>
-                            </div>
-                            <div class="col-md-6 mt-4">
                                 <label class="control-label">Productos de una ubicación</label>
                                 <div class="form-group" :class="{'has-danger': errors.product_only_location}">
                                     <el-switch v-model="form.product_only_location" active-text="Si" inactive-text="No" @change="submit"></el-switch>
@@ -159,7 +169,31 @@
                                 </div>
                             </div>
 
-                            
+                            <div class="col-md-6 mt-4">
+                                <label class="control-label">Seleccionar boleta por defecto
+                                    <el-tooltip class="item" effect="dark" content="Disponible POS" placement="top-start">
+                                        <i class="fa fa-info-circle"></i>
+                                    </el-tooltip>
+                                </label>
+                                <div class="form-group" :class="{'has-danger': errors.default_document_type_03}">
+                                    <el-switch v-model="form.default_document_type_03" active-text="Si" inactive-text="No" @change="submit"></el-switch>
+                                    <small class="form-control-feedback" v-if="errors.default_document_type_03" v-text="errors.default_document_type_03[0]"></small>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 mt-4">
+                                <label class="control-label">Mostrar leyenda en footer - pdf
+                                    <el-tooltip class="item" effect="dark" placement="top-start">
+                                        <div slot="content">Leyenda: Bienes transferidos y/o servicios prestados en la Amazonía para ser consumidos en la misma<br/>Disponible para facturas, boletas, notas y cotizaciones</div>
+                                        <i class="fa fa-info-circle"></i>
+                                    </el-tooltip>
+                                </label>
+                                <div class="form-group" :class="{'has-danger': errors.legend_footer}">
+                                    <el-switch v-model="form.legend_footer" active-text="Si" inactive-text="No" @change="submit"></el-switch>
+                                    <small class="form-control-feedback" v-if="errors.legend_footer" v-text="errors.legend_footer[0]"></small>
+                                </div>
+                            </div>
+
                             <div class="col-md-6 mt-4">
                                 <div class="form-group">
                                     <label class="control-label">Imágen para encabezado - pdf
@@ -180,17 +214,6 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-6 mt-4">
-                                <label class="control-label">Mostrar leyenda en footer - pdf
-                                    <el-tooltip class="item" effect="dark" content="Leyenda: Bienes transferidos y/o servicios prestados en la Amazonía para ser consumidos en la misma, disponible para facturas y boletas" placement="top-start">
-                                        <i class="fa fa-info-circle"></i>
-                                    </el-tooltip>
-                                </label>
-                                <div class="form-group" :class="{'has-danger': errors.legend_footer}">
-                                    <el-switch v-model="form.legend_footer" active-text="Si" inactive-text="No" @change="submit"></el-switch>
-                                    <small class="form-control-feedback" v-if="errors.legend_footer" v-text="errors.legend_footer[0]"></small>
-                                </div>
-                            </div>
 
                         </div>
                     </div>
@@ -240,7 +263,7 @@
         },
         methods: {
             events(){
-                
+
                 this.$eventHub.$on('submitFormConfigurations', (form) => {
                     this.form = form
                     this.submit()
@@ -257,7 +280,7 @@
                 }
             },
             async getRecord(){
-                
+
                 await this.$http.get(`/${this.resource}/record`) .then(response => {
                     if (response.data !== ''){
                     this.form = response.data.data;
@@ -288,6 +311,8 @@
                     terms_condition:null,
                     header_image: null,
                     legend_footer: false,
+                    default_document_type_03: false,
+                    destination_sale: false,
                 };
             },
             submit() {

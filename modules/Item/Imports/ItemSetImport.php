@@ -9,6 +9,7 @@ use Maatwebsite\Excel\Concerns\Importable;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Modules\Item\Models\Category;
 use Modules\Item\Models\Brand;
+use Modules\Item\Models\WebPlatform;
 
 
 class ItemSetImport implements ToCollection
@@ -34,6 +35,7 @@ class ItemSetImport implements ToCollection
                 $sale_unit_price = $row[5];
                 $sale_affectation_igv_type_id = $row[6];
 
+
                 $affectation_igv_types_exonerated_unaffected = ['20','21','30','31','32','33','34','35','36','37'];
 
                 if(in_array($sale_affectation_igv_type_id, $affectation_igv_types_exonerated_unaffected)) {
@@ -57,13 +59,19 @@ class ItemSetImport implements ToCollection
                     $item = null;
                 }
 
+                $name = $row[9];
+                $second_name = $row[10];
+                $web_platform_name = $row[11];
 
                 if(!$item) {
 
                     $category = Category::updateOrCreate(['name' => $category_name]);
                     $brand = Brand::updateOrCreate(['name' => $brand_name]);
+                    $web_platform = WebPlatform::updateOrCreate(['name' => $web_platform_name]);
 
                     Item::create([
+                        'name' => $name,
+                        'second_name' => $second_name,
                         'description' => $description,
                         'item_type_id' => $item_type_id,
                         'internal_id' => $internal_id,
@@ -79,6 +87,7 @@ class ItemSetImport implements ToCollection
                         'stock_min' => 0,
                         'category_id' => $category->id,
                         'brand_id' => $brand->id,
+                        'web_platform_id' => $web_platform->id,
                         'is_set' => true,
                     ]);
 
