@@ -54,7 +54,7 @@ Conexión remota al servidor SSH: [Guía](https://docs.google.com/document/d/1oB
 Guía acceso SSH - Putty: [Guía](https://docs.google.com/document/d/1TMQdOXvJA2vTnjmM1qsD2R5JOAo0vgAVlLeH-17Ndt8/edit?usp=sharing "Clic")<br>
 Conexión servidor Winscp: [Guía](https://docs.google.com/document/d/1peppfRDaD3-qgZdlgaDSZrZATRvVZ-WZROtt4Y7NVSI/edit?usp=sharing "Clic")<br>
 Acceso Red Local LARAGON: [Guía](https://docs.google.com/document/d/1KsAclRydULmsmt_pB7Ec-u_usI75e7tJ1iRHetRlGvc/edit?usp=sharing "Clic")<br>
-
+Manual de configuración APIPERU: [Guía](https://docs.google.com/document/d/1AvWtmqhD-iFSPESCURMAsHTrpZFBAQ-EyVgHnD7lV4k/edit?usp=sharing "Clic")<br>
 
 ### Manipulación de archivos dentro del servidor
 
