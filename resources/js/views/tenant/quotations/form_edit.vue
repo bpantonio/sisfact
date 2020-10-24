@@ -178,13 +178,55 @@
 
                             </div>
                             
-                            <div class="col-lg-4  mt-2">
+                            <!-- <div class="col-lg-4  mt-2">
                                 <div class="form-group" :class="{'has-danger': errors.exchange_rate_sale}">
                                     <label class="control-label">Descripcion
                                     </label>
                                     <el-input  type="textarea"  :rows="3" v-model="form.description"></el-input>
                                     <small class="form-control-feedback" v-if="errors.description" v-text="errors.description[0]"></small>
                                 </div>
+                            </div> -->
+                        </div>
+
+                        
+                        <div class="row mt-2">
+                            <div class="col-md-12">
+                                <el-collapse v-model="activePanel" accordion>
+                                    <el-collapse-item name="1" >
+                                        <template slot="title">
+                                            <i class="fa fa-plus text-info"></i> &nbsp; Información Adicional<i class="header-icon el-icon-information"></i>
+                                        </template>
+                                        <div class="row mt-2">
+
+                                            <div class="col-lg-4">
+                                                <div class="form-group" >
+                                                    <label class="control-label">Contacto
+                                                    </label>
+                                                    <el-input v-model="form.contact"></el-input>
+                                                    <small class="form-control-feedback" v-if="errors.account_number" v-text="errors.account_number[0]"></small>
+                                                </div>
+                                            </div>
+  
+                                            <div class="col-lg-2">
+                                                <div class="form-group" >
+                                                    <label class="control-label">Teléfono
+                                                    </label>
+                                                    <el-input v-model="form.phone"></el-input>
+                                                    <small class="form-control-feedback" v-if="errors.account_number" v-text="errors.account_number[0]"></small>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-6">
+                                                <div class="form-group" :class="{'has-danger': errors.exchange_rate_sale}">
+                                                    <label class="control-label">Observación
+                                                    </label>
+                                                    <el-input  type="textarea"  :rows="3" v-model="form.description"></el-input>
+                                                    <small class="form-control-feedback" v-if="errors.description" v-text="errors.description[0]"></small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </el-collapse-item>
+                                </el-collapse>
                             </div>
                         </div>
                         
@@ -198,6 +240,7 @@
                                                 <th class="font-weight-bold">Descripción</th>
                                                 <th class="text-center font-weight-bold">Unidad</th>
                                                 <th class="text-right font-weight-bold">Cantidad</th>
+                                                <th class="text-right font-weight-bold">Valor Unitario</th>
                                                 <th class="text-right font-weight-bold">Precio Unitario</th>
                                                 <th class="text-right font-weight-bold">Subtotal</th>
                                                 <!--<th class="text-right font-weight-bold">Cargo</th>-->
@@ -212,6 +255,7 @@
                                                 <td class="text-center">{{row.item.unit_type_id}}</td>
                                                 <td class="text-right">{{row.quantity}}</td>
                                                 <!-- <td class="text-right">{{currency_type.symbol}} {{row.unit_price}}</td> -->
+                                                <td class="text-right">{{currency_type.symbol}} {{getFormatUnitPriceRow(row.unit_value)}}</td>
                                                 <td class="text-right">{{ currency_type.symbol }} {{ getFormatUnitPriceRow(row.unit_price) }}</td>
 
                                                 <td class="text-right">{{currency_type.symbol}} {{row.total_value}}</td>
@@ -221,7 +265,7 @@
                                                     <button type="button" class="btn waves-effect waves-light btn-xs btn-danger" @click.prevent="clickRemoveItem(index)">x</button>
                                                 </td>
                                             </tr>
-                                            <tr><td colspan="8"></td></tr>
+                                            <tr><td colspan="9"></td></tr>
                                         </tbody>
                                     </table>
                                 </div>
@@ -499,7 +543,9 @@
                     payments: [],
                     actions: {
                         format_pdf:'a4',
-                    }
+                    },
+                    contact:null,
+                    phone:null,
                 }
 
                 this.clickAddPayment()
