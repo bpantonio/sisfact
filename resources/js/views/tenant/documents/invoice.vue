@@ -69,7 +69,7 @@
                             <div class="col-lg-2">
                                 <div class="form-group" :class="{'has-danger': errors.operation_type_id}">
                                     <label class="control-label">Tipo Operación
-                                    <template v-if="form.operation_type_id == '1001' && has_data_detraction" >
+                                    <template v-if="(form.operation_type_id == '1001' || form.operation_type_id == '1004') && has_data_detraction" >
                                         <a href="#" @click.prevent="showDialogDocumentDetraction = true" class="text-center font-weight-bold text-info"> [+ Ver datos]</a>
                                     </template>
 
@@ -100,7 +100,7 @@
                             </div>
                         </div>
                         <div class="row mt-1">
-                            <div class="col-lg-6 pb-2">
+                            <div :class="seller_class">
                                 <div class="form-group" :class="{'has-danger': errors.customer_id}">
                                     <label class="control-label font-weight-bold text-info">
                                         Cliente
@@ -123,6 +123,14 @@
                                     <label class="control-label font-weight-bold text-info">Dirección</label>
                                     <el-select v-model="form.customer_address_id">
                                         <el-option v-for="option in customer_addresses" :key="option.id" :value="option.id" :label="option.address"></el-option>
+                                    </el-select>
+                                </div>
+                            </div>
+                            <div v-if="typeUser == 'admin'" class="col-lg-2">
+                                <div class="form-group">
+                                    <label class="control-label">Vendedor</label>
+                                    <el-select v-model="form.seller_id">
+                                        <el-option v-for="option in sellers" :key="option.id" :value="option.id" :label="option.name"></el-option>
                                     </el-select>
                                 </div>
                             </div>
@@ -641,6 +649,7 @@
         <document-detraction
             :detraction="form.detraction"
             :total="form.total"
+            :operation-type-id="form.operation_type_id"
             :currency-type-id-active="form.currency_type_id"
             :exchange-rate-sale="form.exchange_rate_sale"
             :showDialog.sync="showDialogDocumentDetraction"
@@ -671,7 +680,7 @@
     import DocumentHotelForm from '../../../../../modules/BusinessTurn/Resources/assets/js/views/hotels/form.vue'
     import DocumentTransportForm from '../../../../../modules/BusinessTurn/Resources/assets/js/views/transports/form.vue'
     import DocumentDetraction from './partials/detraction.vue'
-import moment from 'moment'
+    import moment from 'moment'
 
     export default {
         props: ['typeUser', 'configuration'],
@@ -710,6 +719,7 @@ import moment from 'moment'
                 form_payment: {},
                 document_types_guide: [],
                 customers: [],
+                sellers: [],
                 company: null,
                 document_type_03_filter: null,
                 operation_types: [],
@@ -739,6 +749,7 @@ import moment from 'moment'
                 form_cash_document: {},
                 enabled_payments: true,
                 readonly_date_of_due: false,
+                seller_class: 'col-lg-6 pb-2',
             }
         },
         async created() {
@@ -753,6 +764,7 @@ import moment from 'moment'
                     this.operation_types = response.data.operation_types
                     this.all_series = response.data.series
                     this.all_customers = response.data.customers
+                    this.sellers = response.data.sellers
                     this.discount_types = response.data.discount_types
                     this.charges_types = response.data.charges_types
                     this.payment_method_types = response.data.payment_method_types
@@ -765,11 +777,14 @@ import moment from 'moment'
                     this.form.establishment_id = (this.establishments.length > 0)?this.establishments[0].id:null;
                     this.form.document_type_id = (this.document_types.length > 0)?this.document_types[0].id:null;
                     this.form.operation_type_id = (this.operation_types.length > 0)?this.operation_types[0].id:null;
+                    this.form.seller_id = (this.sellers.length > 0)?this.sellers[0].id:null;
                     // this.prepayment_documents = response.data.prepayment_documents;
                     this.is_client = response.data.is_client;
                     // this.cat_payment_method_types = response.data.cat_payment_method_types;
                     // this.all_detraction_types = response.data.detraction_types;
                     this.payment_destinations = response.data.payment_destinations
+
+                    this.seller_class = (this.user == 'admin')?'col-lg-4 pb-2':'col-lg-6 pb-2';
 
                     this.selectDocumentType()
 
@@ -815,9 +830,9 @@ import moment from 'moment'
                     let cash = _.find(this.payment_destinations, {id : 'cash'})
 
                     if(cash){
-                    
+
                         this.form.payments[0].payment_destination_id = cash.id
-                    
+
                     }else{
 
                         this.form.payment_destination_id = this.payment_destinations[0].id
@@ -1151,7 +1166,7 @@ import moment from 'moment'
                     payment_destination_id: this.getPaymentDestinationId(),
                     payment: 0,
                 });
-                
+
             },
             getPaymentDestinationId() {
 
@@ -1210,6 +1225,7 @@ import moment from 'moment'
                     establishment_id: null,
                     document_type_id: null,
                     series_id: null,
+                    seller_id: null,
                     number: '#',
                     date_of_issue: moment().format('YYYY-MM-DD'),
                     time_of_issue: moment().format('HH:mm:ss'),
@@ -1295,6 +1311,7 @@ import moment from 'moment'
                 this.form.establishment_id = (this.establishments.length > 0)?this.establishments[0].id:null
                 this.form.document_type_id = (this.document_types.length > 0)?this.document_types[0].id:null
                 this.form.operation_type_id = (this.operation_types.length > 0)?this.operation_types[0].id:null
+                this.form.seller_id = (this.sellers.length > 0)?this.sellers[0].id:null;
                 this.selectDocumentType()
                 this.changeEstablishment()
                 this.changeDocumentType()
@@ -1323,6 +1340,13 @@ import moment from 'moment'
                     if(!legend) this.form.legends.push({code:'2006', value:'Operación sujeta a detracción'})
                     this.form.detraction.bank_account = this.company.detraction_account
 
+                }else if(this.form.operation_type_id === '1004'){
+
+                    this.showDialogDocumentDetraction = true
+                    let legend = await _.find(this.form.legends,{'code':'2006'})
+                    if(!legend) this.form.legends.push({code:'2006', value:'Operación Sujeta a Detracción - Servicios de Transporte - Carga'})
+                    this.form.detraction.bank_account = this.company.detraction_account
+
                 }else{
 
                     _.remove(this.form.legends,{'code':'2006'})
@@ -1343,15 +1367,16 @@ import moment from 'moment'
             },
             validateDetraction(){
 
-                if(this.form.operation_type_id === '1001'){
+                if(['1001', '1004'].includes(this.form.operation_type_id)){
 
                     let detraction = this.form.detraction
 
                     let tot = (this.form.currency_type_id == 'PEN') ? this.form.total:(this.form.total * this.form.exchange_rate_sale)
                     // console.log(tot)
+                    let total_restriction = (this.form.operation_type_id == '1001') ? 700 : 400
 
-                    if(tot <= 700)
-                        return {success:false, message:'El importe de la operación debe ser mayor a S/ 700.00 o equivalente en USD'}
+                    if(tot <= total_restriction)
+                        return {success:false, message:`El importe de la operación debe ser mayor a S/ ${total_restriction}.00 o equivalente en USD`}
 
                     if(!detraction.detraction_type_id)
                         return {success:false, message:'El campo bien o servicio sujeto a detracción es obligatorio'}
@@ -1424,7 +1449,10 @@ import moment from 'moment'
             },
             filterCustomers() {
                 // this.form.customer_id = null
-                if(this.form.operation_type_id === '0101' || this.form.operation_type_id === '1001') {
+                // if(this.form.operation_type_id === '0101' || this.form.operation_type_id === '1001') {
+
+                if (['0101', '1001', '1004'].includes(this.form.operation_type_id)) {
+
                     if(this.form.document_type_id === '01') {
                         this.customers = _.filter(this.all_customers, {'identity_document_type_id': '6'})
                     } else {
@@ -1434,6 +1462,7 @@ import moment from 'moment'
                             this.customers = this.all_customers
                         }
                     }
+
                 } else {
                     this.customers = this.all_customers
                 }
@@ -1551,7 +1580,7 @@ import moment from 'moment'
                 if(this.prepayment_deduction)
                     this.discountGlobalPrepayment()
 
-                if(this.form.operation_type_id === '1001')
+                if(['1001', '1004'].includes(this.form.operation_type_id))
                     this.changeDetractionType()
 
                 this.setTotalDefaultPayment()

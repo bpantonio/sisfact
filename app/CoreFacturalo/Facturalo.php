@@ -321,6 +321,7 @@ class Facturalo
             $total_taxed       = $this->document->total_taxed != '' ? '10' : '0';
             $perception       = $this->document->perception != '' ? '10' : '0';
             $detraction       = $this->document->detraction != '' ? '50' : '0';
+            $detraction       += ($this->document->detraction && $this->document->invoice->operation_type_id == '1004') ? 45 : 0;
 
             $total_plastic_bag_taxes       = $this->document->total_plastic_bag_taxes != '' ? '10' : '0';
             $quantity_rows     = count($this->document->items) + $was_deducted_prepayment;
@@ -441,7 +442,7 @@ class Facturalo
         } else {
 
             if ($base_pdf_template === 'brand') {
-                $pdf_margin_top = 100;
+                $pdf_margin_top = 93.7;
                 $pdf_margin_bottom = 74;
             }
 
@@ -592,7 +593,11 @@ class Facturalo
         }
         if($code === 'HTTP') {
 //            $message = 'La SUNAT no responde a su solicitud, vuelva a intentarlo.';
-            // throw new Exception("Code: {$code}; Description: {$message}");
+
+            if(in_array($this->type, ['retention'])){
+                throw new Exception("Code: {$code}; Description: {$message}");
+            }
+
             $this->updateRegularizeShipping($code, $message);
             return;
         }
@@ -602,7 +607,11 @@ class Facturalo
         }
         if((int)$code < 2000) {
             //Excepciones
-            // throw new Exception("Code: {$code}; Description: {$message}");
+            
+            if(in_array($this->type, ['retention'])){
+                throw new Exception("Code: {$code}; Description: {$message}");
+            }
+
             $this->updateRegularizeShipping($code, $message);
             return;
 

@@ -18,7 +18,7 @@ class GeneralItemCollection extends ResourceCollection
 
             $resource = self::getDocument($row);
 
-            $total_item_purchase = self::getPurchaseUnitPrice($row) * $row->quantity;
+            $total_item_purchase = self::getPurchaseUnitPrice($row);
             $utility_item = $row->total - $total_item_purchase;
 
 
@@ -27,6 +27,7 @@ class GeneralItemCollection extends ResourceCollection
                 'unit_type_id' => $row->item->unit_type_id,
                 'internal_id' => $row->relation_item->internal_id,
                 'description' => $row->item->description,
+                'currency_type_id' => $resource['currency_type_id'],
 
                 'lot_has_sale' => self::getLotsHasSale($row),
 
@@ -57,6 +58,26 @@ class GeneralItemCollection extends ResourceCollection
 
         $purchase_unit_price = 0;
 
+        if($record->relation_item->is_set){
+
+            foreach ($record->relation_item->sets as $item_set) {
+                $purchase_unit_price += (self::getIndividualPurchaseUnitPrice($item_set) * $item_set->quantity) * $record->quantity ;
+            }
+
+        }else{
+
+            $purchase_unit_price = self::getIndividualPurchaseUnitPrice($record) * $record->quantity;
+
+        }
+
+        return $purchase_unit_price;
+    }
+
+    
+    public static function getIndividualPurchaseUnitPrice($record){
+
+        $purchase_unit_price = 0;
+    
         if($record->relation_item->purchase_unit_price > 0){
 
             $purchase_unit_price = $record->relation_item->purchase_unit_price;
@@ -68,10 +89,9 @@ class GeneralItemCollection extends ResourceCollection
 
         }
 
-
         return $purchase_unit_price;
     }
-    
+
 
     public static function getLotsHasSale($row)
     {
@@ -102,6 +122,7 @@ class GeneralItemCollection extends ResourceCollection
             $data['alone_number'] =  $row->document->number;
             $data['document_type_description'] = $row->document->document_type->description;
             $data['document_type_id'] = $row->document->document_type->id;
+            $data['currency_type_id'] = $row->document->currency_type_id;
 
         }
         else if($row->purchase)
@@ -113,6 +134,7 @@ class GeneralItemCollection extends ResourceCollection
             $data['alone_number'] =  $row->purchase->number;
             $data['document_type_description'] = $row->purchase->document_type->description;
             $data['document_type_id'] = $row->purchase->document_type->id;
+            $data['currency_type_id'] = $row->purchase->currency_type_id;
 
         }
         else if($row->sale_note)
@@ -124,6 +146,7 @@ class GeneralItemCollection extends ResourceCollection
             $data['alone_number'] =  $row->sale_note->number;
             $data['document_type_description'] = 'NOTA DE VENTA';
             $data['document_type_id'] = 80;
+            $data['currency_type_id'] = $row->sale_note->currency_type_id;
         }
 
         return $data;
