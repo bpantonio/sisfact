@@ -7,7 +7,7 @@
 
 [Instalación PC Windows - Linux](https://docs.google.com/document/d/1mc3VECilXgvy5oWQ6qe9EdLBrfuEyTrXdl_f2VV8i7I/edit?usp=sharing "Clic")
 <br>
-[Docker - Linux](https://docs.google.com/document/d/1XP0nWtIagd4Uj3YLMSFDKFO33Cf-yDOQZAT65tgxMog/edit?usp=sharing "Clic")
+[Servidor WEB- Instancia VPS Docker - Linux](https://docs.google.com/document/d/1XP0nWtIagd4Uj3YLMSFDKFO33Cf-yDOQZAT65tgxMog/edit?usp=sharing "Clic")
 <br>
 [Valet - Linux](https://docs.google.com/document/d/1B0sqxV0bkXaD6iBpQuh-oPiSjBYG_oAHeNiUpyMQ3Nw/edit?usp=sharing "Clic")
 <br>
