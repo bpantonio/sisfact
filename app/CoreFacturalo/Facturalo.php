@@ -289,6 +289,12 @@ class Facturalo
             $pdf_margin_bottom = 5;
             $pdf_margin_left = 5;
         }
+        if ($base_pdf_template === 'blank' && in_array($this->document->document_type_id, ['09'])) {
+            $pdf_margin_top = 15;
+            $pdf_margin_right = 5;
+            $pdf_margin_bottom = 15;
+            $pdf_margin_left = 14;
+        }
 
         $html = $template->pdf($base_pdf_template, $this->type, $this->company, $this->document, $format_pdf);
 
@@ -445,6 +451,10 @@ class Facturalo
                 $pdf_margin_top = 93.7;
                 $pdf_margin_bottom = 74;
             }
+            if ($base_pdf_template === 'blank' && in_array($this->document->document_type_id, ['09'])) {
+                $pdf_margin_top = 110;
+                $pdf_margin_bottom = 125;
+            }
 
             $pdf_font_regular = config('tenant.pdf_name_regular');
             $pdf_font_bold = config('tenant.pdf_name_bold');
@@ -516,6 +526,15 @@ class Facturalo
             }
 //            $html_footer = $template->pdfFooter();
 //            $pdf->SetHTMLFooter($html_footer);
+        }
+
+        if ($base_pdf_template === 'blank' && in_array($this->document->document_type_id, ['09'])) {
+
+            $html_header = $template->pdfHeader($base_pdf_template, $this->company, $this->document);
+            $pdf->SetHTMLHeader($html_header);
+
+            $html_footer_blank = $template->pdfFooterBlank($base_pdf_template, $this->document);
+            $pdf->SetHTMLFooter($html_footer_blank);
         }
 
         $pdf->WriteHTML($stylesheet, HTMLParserMode::HEADER_CSS);
@@ -594,7 +613,7 @@ class Facturalo
         if($code === 'HTTP') {
 //            $message = 'La SUNAT no responde a su solicitud, vuelva a intentarlo.';
 
-            if(in_array($this->type, ['retention'])){
+            if(in_array($this->type, ['retention', 'dispatch'])){
                 throw new Exception("Code: {$code}; Description: {$message}");
             }
 
@@ -607,8 +626,8 @@ class Facturalo
         }
         if((int)$code < 2000) {
             //Excepciones
-            
-            if(in_array($this->type, ['retention'])){
+
+            if(in_array($this->type, ['retention', 'dispatch'])){
                 throw new Exception("Code: {$code}; Description: {$message}");
             }
 

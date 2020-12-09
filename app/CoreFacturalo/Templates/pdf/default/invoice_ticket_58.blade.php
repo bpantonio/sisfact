@@ -118,6 +118,17 @@
         </tr>
     @endif
     
+    @if ($document->reference_data)
+        <tr>
+            <td class="align-top"><p class="desc">D. Referencia:</p></td>
+            <td>
+                <p class="desc">
+                    {{ $document->reference_data }} 
+                </p>
+            </td>
+        </tr>
+    @endif
+
     @if ($document->detraction)
         <tr>
             <td  class="align-top"><p class="desc">N. Cta Detracciones:</p></td>
@@ -312,6 +323,10 @@
                     @foreach($row->discounts as $dtos)
                         <br/><small>{{ $dtos->factor * 100 }}% {{$dtos->description }}</small>
                     @endforeach
+                @endif
+                @if($document->has_prepayment)
+                    <br>
+                    *** Pago Anticipado ***
                 @endif
             </td>
             <td class="text-right desc-9 align-top">{{ number_format($row->unit_price, 2) }}</td>

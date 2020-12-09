@@ -153,6 +153,15 @@
         @endif
     </tr>
     @endif
+    
+    @if ($document->reference_data)
+        <tr> 
+            <td width="120px">D. REFERENCIA</td>
+            <td width="8px">:</td>
+            <td>{{ $document->reference_data}}</td>
+        </tr>
+    @endif
+
     @if ($document->detraction)
         @if($document->detraction->pay_constancy)
         <tr>
@@ -381,6 +390,11 @@
                      {{$item}}<br>
                  @endforeach
                  {{-- {{join( "-", $itemSet->getItemsSet($row->item_id) )}} --}}
+                @endif
+                
+                @if($document->has_prepayment)
+                    <br>
+                    *** Pago Anticipado ***
                 @endif
             </td>
             <td class="text-center align-top">

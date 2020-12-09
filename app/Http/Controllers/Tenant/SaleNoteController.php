@@ -842,7 +842,7 @@ class SaleNoteController extends Controller
 
         if($row->unit_type_id != 'ZZ')
         {
-            $warehouse_stock = ($row->warehouses && $warehouse) ? number_format($row->warehouses->where('warehouse_id', $warehouse->id)->first()->stock,2) : 0;
+            $warehouse_stock = ($row->warehouses && $warehouse) ? number_format($row->warehouses->where('warehouse_id', $warehouse->id)->first() != null ? $row->warehouses->where('warehouse_id', $warehouse->id)->first()->stock : 0 ,2) : 0;
             $stock = ($row->warehouses && $warehouse) ? "{$warehouse_stock}" : "";
         }
         else{
@@ -974,18 +974,20 @@ class SaleNoteController extends Controller
 
         if(!$sale_note_item->item->is_set){
 
+            $presentationQuantity = (!empty($sale_note_item->item->presentation)) ? $sale_note_item->item->presentation->quantity_unit : 1;
+
             $sale_note_item->sale_note->inventory_kardex()->create([
                 'date_of_issue' => date('Y-m-d'),
                 'item_id' => $sale_note_item->item_id,
                 'warehouse_id' => $warehouse_id,
-                'quantity' => $sale_note_item->quantity,
+                'quantity' => $sale_note_item->quantity * $presentationQuantity,
             ]);
 
             $wr = ItemWarehouse::where([['item_id', $sale_note_item->item_id],['warehouse_id', $warehouse_id]])->first();
 
             if($wr)
             {
-                $wr->stock =  $wr->stock + $sale_note_item->quantity;
+                $wr->stock =  $wr->stock + ($sale_note_item->quantity * $presentationQuantity);
                 $wr->save();
             }
 

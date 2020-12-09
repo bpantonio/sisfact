@@ -60,7 +60,7 @@ class DispatchController extends Controller
 
         return new DispatchCollection($records->paginate(config('tenant.items_per_page')));
     }
-     
+
 
     public function create($document_id = null, $type = null, $dispatch_id = null)
     {
@@ -87,7 +87,7 @@ class DispatchController extends Controller
 
 
     public function generate($sale_note_id)
-    { 
+    {
 
         $sale_note = SaleNote::findOrFail($sale_note_id);
         $type = null;
@@ -100,19 +100,34 @@ class DispatchController extends Controller
 
 
     public function store(DispatchRequest $request) {
-        $fact = DB::connection('tenant')->transaction(function () use($request) {
-            $facturalo = new Facturalo();
-            $facturalo->save($request->all());
-            $facturalo->createXmlUnsigned();
-            $facturalo->signXmlUnsigned();
-            $facturalo->createPdf();
-            $facturalo->senderXmlSignedBill();
 
-            return $facturalo;
-        });
+        if ($request->series[0] == 'T') {
+            $fact = DB::connection('tenant')->transaction(function () use($request) {
+                $facturalo = new Facturalo();
+                $facturalo->save($request->all());
+                $facturalo->createXmlUnsigned();
+                $facturalo->signXmlUnsigned();
+                $facturalo->createPdf();
+                $facturalo->senderXmlSignedBill();
 
-        $document = $fact->getDocument();
-        $response = $fact->getResponse();
+                return $facturalo;
+            });
+
+            $document = $fact->getDocument();
+            $response = $fact->getResponse();
+        } else {
+            $fact = DB::connection('tenant')->transaction(function () use($request) {
+                $facturalo = new Facturalo();
+                $facturalo->save($request->all());
+                $facturalo->createPdf();
+
+                return $facturalo;
+            });
+
+            $document = $fact->getDocument();
+            // $response = $fact->getResponse();
+        }
+
 
         return [
             'success' => true,
@@ -224,7 +239,7 @@ class DispatchController extends Controller
         $series = Series::all();
         $company = Company::select('number')->first();
 
-        return compact('establishments', 'customers', 'series', 'transportModeTypes', 'transferReasonTypes', 'unitTypes', 
+        return compact('establishments', 'customers', 'series', 'transportModeTypes', 'transferReasonTypes', 'unitTypes',
                         'countries', 'departments', 'provinces', 'districts', 'identityDocumentTypes', 'items','locations', 'company');
     }
 
@@ -252,7 +267,7 @@ class DispatchController extends Controller
         return $this->downloadStorage($retention->filename, $folder);
     }
 
-    
+
     public function record($id)
     {
         $record = new DispatchResource(Dispatch::findOrFail($id));

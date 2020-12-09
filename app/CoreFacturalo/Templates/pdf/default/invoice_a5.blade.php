@@ -161,6 +161,15 @@
         @endif
     </tr>
     @endif
+
+    
+    @if ($document->reference_data)
+        <tr> 
+            <td width="120px">D. REFERENCIA</td>
+            <td width="8px">:</td>
+            <td>{{ $document->reference_data}}</td>
+        </tr>
+    @endif
 </table>
 
 {{--<table class="full-width mt-3">--}}
@@ -335,6 +344,10 @@
                      {{$item}}<br>
                  @endforeach
                  {{-- {{join( "-", $itemSet->getItemsSet($row->item_id) )}} --}}
+                @endif
+                @if($document->has_prepayment)
+                    <br>
+                    *** Pago Anticipado ***
                 @endif
             </td>
             <td class="text-right align-top">{{ number_format($row->unit_price, 2) }}</td>

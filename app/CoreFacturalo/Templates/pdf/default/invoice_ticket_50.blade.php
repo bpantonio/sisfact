@@ -118,6 +118,17 @@
         </tr>
     @endif
 
+    @if ($document->reference_data)
+        <tr>
+            <td class="align-top"><p class="desc-9">D. Referencia:</p></td>
+            <td>
+                <p class="desc-9">
+                    {{ $document->reference_data }} 
+                </p>
+            </td>
+        </tr>
+    @endif
+
     
     @if ($document->detraction)
         <tr>
@@ -313,6 +324,19 @@
                     @foreach($row->discounts as $dtos)
                         <br/><small>{{ $dtos->factor * 100 }}% {{$dtos->description }}</small>
                     @endforeach
+                @endif
+                @if($row->item->is_set == 1)
+
+                 <br>
+                 @inject('itemSet', 'App\Services\ItemSetService')
+                 @foreach ($itemSet->getItemsSet($row->item_id) as $item)
+                     {{$item}}<br>
+                 @endforeach
+                 {{-- {{join( "-", $itemSet->getItemsSet($row->item_id) )}} --}}
+                @endif
+                @if($document->has_prepayment)
+                    <br>
+                    *** Pago Anticipado ***
                 @endif
             </td>
             <td class="text-right desc-9 align-top">{{ number_format($row->unit_price, 2) }}</td>

@@ -98,6 +98,17 @@
             <td><p class="desc">{{ $document->observation }}</p></td>
         </tr>
     @endif
+    @if ($document->reference_data)
+        <tr>
+            <td class="align-top"><p class="desc">D. Referencia:</p></td>
+            <td>
+                <p class="desc">
+                    {{ $document->reference_data }} 
+                </p>
+            </td>
+        </tr>
+    @endif
+
 </table>
 
 <table class="full-width mt-10 mb-10">
@@ -132,6 +143,14 @@
                     @foreach($row->discounts as $dtos)
                         <br/><small>{{ $dtos->factor * 100 }}% {{$dtos->description }}</small>
                     @endforeach
+                @endif
+                @if($row->item->is_set == 1)
+
+                 <br>
+                 @inject('itemSet', 'App\Services\ItemSetService')
+                 @foreach ($itemSet->getItemsSet($row->item_id) as $item)
+                     {{$item}}<br>
+                 @endforeach
                 @endif
             </td>
             <td class="text-right desc-9 align-top">{{ number_format($row->unit_price, 2) }}</td>
