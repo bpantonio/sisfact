@@ -40,6 +40,7 @@ use App\Exports\ItemExportBarCode;
 use Modules\Finance\Helpers\UploadFileHelper;
 use Mpdf\HTMLParserMode;
 use Mpdf\Mpdf;
+use Modules\Inventory\Models\ItemWarehouse;
 
 
 class ItemController extends Controller
@@ -543,12 +544,31 @@ class ItemController extends Controller
 
     public function export(Request $request)
     {
-        $date = $request->month_start.'-01';
-        $start_date = Carbon::parse($date);
-        $end_date = Carbon::parse($date)->addMonth()->subDay();
-        // dd($start_date.' - '.$end_date);
 
-        $records = Item::whereBetween('created_at', [$start_date, $end_date])->get();
+        // dd($request->all());
+        $d_start = null;
+        $d_end = null;
+        $period = $request->period;
+
+        switch ($period) {
+            case 'month':
+                $d_start = Carbon::parse($request->month_start.'-01')->format('Y-m-d');
+                $d_end = Carbon::parse($request->month_start.'-01')->endOfMonth()->format('Y-m-d');
+                break;
+            case 'between_months':
+                $d_start = Carbon::parse($request->month_start.'-01')->format('Y-m-d');
+                $d_end = Carbon::parse($request->month_end.'-01')->endOfMonth()->format('Y-m-d');
+                break; 
+        }
+
+        // $date = $request->month_start.'-01';
+        // $start_date = Carbon::parse($date);
+        // $end_date = Carbon::parse($date)->addMonth()->subDay();
+        // dd($d_start.' - '.$d_end, $period);
+
+        $items = Item::whereTypeUser()->whereNotIsSet();
+        
+        $records = ($period == 'all') ? $items->get() : $items->whereBetween('created_at', [$d_start, $d_end])->get();
         // dd(new ItemCollection($records));
 
         return (new ItemExport)
@@ -608,6 +628,24 @@ class ItemController extends Controller
         $id = $request->id;
 
         $record = Item::find($id);
+
+        $item_warehouse = ItemWarehouse::where([['item_id', $id], ['warehouse_id', auth()->user()->establishment->warehouse->id]])->first();
+
+        if(!$item_warehouse){
+            return [
+                'success' => false,
+                'message' => "El producto seleccionado no esta disponible en su almacen!"
+            ];
+        }
+
+        if($item_warehouse->stock < 1){
+            return [
+                'success' => false,
+                'message' => "El producto seleccionado no tiene stock disponible en su almacen, no puede generar etiquetas!"
+            ];
+        }
+
+        $stock = $item_warehouse->stock;
         
         $pdf = new Mpdf([
                 'mode' => 'utf-8',
@@ -620,7 +658,8 @@ class ItemController extends Controller
                 'margin_bottom' => 0,
                 'margin_left' => 2
             ]);
-        $html = view('tenant.items.exports.items-barcode-id', compact('record'))->render();
+
+        $html = view('tenant.items.exports.items-barcode-id', compact('record', 'stock'))->render();
 
         $pdf->WriteHTML($html, HTMLParserMode::HTML_BODY);
 
