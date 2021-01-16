@@ -189,7 +189,7 @@
                             <el-checkbox v-model="form.lots_enabled" @change="changeLotsEnabled">¿Maneja lotes?</el-checkbox><br>
                         </div>
                     </div>
-                    <div class="col-md-3" v-show="form.unit_type_id !='ZZ' && form.lots_enabled && !recordId">
+                    <div class="col-md-3" v-show="form.unit_type_id !='ZZ' && form.lots_enabled">
                         <div class="form-group" :class="{'has-danger': errors.lot_code}">
                             <label class="control-label">
                                 <!-- <el-checkbox v-model="enabled_lots"  @change="changeEnabledPercentageOfProfit">Código lote</el-checkbox> -->
@@ -267,6 +267,13 @@
                             <el-input v-model="form.line" >
                             </el-input>
                             <small class="form-control-feedback" v-if="errors.line" v-text="errors.line[0]"></small>
+                        </div>
+                    </div>
+                    <div class="col-md-3" >
+                        <div class="form-group" :class="{'has-danger': errors.barcode}">
+                            <label class="control-label">Código de barra</label>
+                            <el-input v-model="form.barcode" ></el-input>
+                            <small class="form-control-feedback" v-if="errors.barcode" v-text="errors.barcode[0]"></small>
                         </div>
                     </div>
 
@@ -894,7 +901,7 @@
 
                 }*/
 
-                if(!this.recordId && this.form.lots_enabled){
+                if(this.form.lots_enabled){
 
                     if(!this.form.lot_code)
                         return this.$message.error('Código de lote es requerido');
