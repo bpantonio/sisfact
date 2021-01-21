@@ -69,6 +69,7 @@ class Item extends ModelTenant
         'purchase_has_igv',
         'web_platform_id',
         'has_plastic_bag_taxes',
+        'barcode',
         // 'warehouse_id'
     ];
 
@@ -211,7 +212,10 @@ class Item extends ModelTenant
 
     public function brand()
     {
-        return $this->belongsTo(Brand::class);
+        return $this->belongsTo(Brand::class)->withDefault([
+            'id' => '',
+            'name' => ''
+        ]);
     }
 
     public function category()
