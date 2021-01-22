@@ -15,7 +15,7 @@
 
 ### APP Facturación Electrónica
 
-[Descarga de APP para celular](https://drive.google.com/file/d/13LOoytDOiPzCdrxY1y6y8lEERE8ipSQ9/view?usp=sharing "Clic")
+[Descarga de APP para celular](https://drive.google.com/drive/folders/1fAUoWy1H9cyho9MG7KWhlvTnKZMnN5y5?usp=sharing "Clic")
 <br>
 
 ### Manuales de actualización
