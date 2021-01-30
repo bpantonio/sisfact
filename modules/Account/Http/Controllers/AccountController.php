@@ -33,12 +33,6 @@ class AccountController extends Controller
 
         switch ($type) {
             case 'concar':
-<<<<<<< HEAD
-
-                // libxml_use_internal_errors(true);
-
-=======
->>>>>>> 53bbeb2fe9b9b4dd87620429767f59ff029281c1
                 $data = [
                     'records' => $this->getStructureConcar($this->getAllDocuments($d_start, $d_end)),
                 ];
@@ -47,11 +41,6 @@ class AccountController extends Controller
                             ->data($data)
                             ->download($filename.'.xlsx');
 
-<<<<<<< HEAD
-                // libxml_use_internal_errors(false);
-
-=======
->>>>>>> 53bbeb2fe9b9b4dd87620429767f59ff029281c1
                 return $report;
 
             case 'siscont':
@@ -198,18 +187,6 @@ class AccountController extends Controller
         $document_type = "";
 
         switch ($document_type_id) {
-<<<<<<< HEAD
-            case '01': 
-                $document_type = 'FT';
-                break;
-            case '03': 
-                $document_type = 'BV';
-                break;
-            case '07': 
-                $document_type = 'NA';
-                break;
-            case '08': 
-=======
             case '01':
                 $document_type = 'FT';
                 break;
@@ -220,7 +197,6 @@ class AccountController extends Controller
                 $document_type = 'NA';
                 break;
             case '08':
->>>>>>> 53bbeb2fe9b9b4dd87620429767f59ff029281c1
                 $document_type = 'ND';
                 break;
         }
@@ -292,11 +268,7 @@ class AccountController extends Controller
                         'col_U' => $date_of_due,
                         'col_V' => '',
                         'col_W' => $document_type_id.'-'.$row->number_full,
-<<<<<<< HEAD
-                        // 'col_W' => $detail, 
-=======
                         // 'col_W' => $detail,
->>>>>>> 53bbeb2fe9b9b4dd87620429767f59ff029281c1
                         'col_X' => '',
                         'col_Y' => '',
                         'col_Z' => $reference_document_type_id,
@@ -315,11 +287,7 @@ class AccountController extends Controller
                         'col_AM' => '',
                         'col_AN' => '',
                     ];
-<<<<<<< HEAD
-    
-=======
 
->>>>>>> 53bbeb2fe9b9b4dd87620429767f59ff029281c1
                     $rows[] = [
                         // 'col_A' => '',
                         'col_B' => '05',
@@ -364,11 +332,7 @@ class AccountController extends Controller
                         'col_AM' => '',
                         'col_AN' => '',
                     ];
-<<<<<<< HEAD
-    
-=======
 
->>>>>>> 53bbeb2fe9b9b4dd87620429767f59ff029281c1
                     $rows[] = [
                         // 'col_A' => '',
                         'col_B' => '05',
@@ -417,8 +381,6 @@ class AccountController extends Controller
                 }
                 else
                 {
-<<<<<<< HEAD
-=======
 
                     $rows[] = [
                         // 'col_A' => '',
@@ -510,7 +472,6 @@ class AccountController extends Controller
                         'col_AM' => '',
                         'col_AN' => '',
                     ];
->>>>>>> 53bbeb2fe9b9b4dd87620429767f59ff029281c1
 
                     $rows[] = [
                         // 'col_A' => '',
@@ -524,100 +485,6 @@ class AccountController extends Controller
                         'col_H' => 'V',
                         'col_I' => 'S',
                         'col_J' => '',
-<<<<<<< HEAD
-                        // 'col_K' => '121201',
-                        'col_K' => ($row->currency_type_id === 'PEN') ? $company_account->total_pen : $company_account->total_usd,
-                        'col_L' => $row->customer->number,
-                        'col_M' => '',
-                        'col_N' => 'D',
-                        'col_O' => ($row->state_type_id == 11) ? 0 : $item->total,
-                        'col_P' => ($row->state_type_id == 11) ? 0 : ( ($row->currency_type_id === 'PEN') ? number_format($item->total / $row->exchange_rate_sale, 2, ".", "") : $item->total),
-                        'col_Q' => ($row->state_type_id == 11) ? 0 : ( ($row->currency_type_id === 'PEN') ? $item->total : number_format($item->total * $row->exchange_rate_sale, 2, ".", "")),
-                        'col_R' => $document_type_id,
-                        'col_S' => $row->number_full,
-                        'col_T' => $row->date_of_issue->format('d/m/Y'),
-                        'col_U' => $date_of_due,
-                        'col_V' => '',
-                        'col_W' => $document_type_id.'-'.$row->number_full,
-                        // 'col_W' => $detail, 
-                        'col_X' => '',
-                        'col_Y' => '',
-                        'col_Z' => $reference_document_type_id,
-                        'col_AA' => $reference_number_full,
-                        'col_AB' => $reference_date_of_issue,
-                        'col_AC' => '',
-                        'col_AD' => $reference_total_value,
-                        'col_AE' => $reference_total_igv,
-                        'col_AF' => '',
-                        'col_AG' => '',
-                        'col_AH' => '',
-                        'col_AI' => '',
-                        'col_AJ' => '',
-                        'col_AK' => '',
-                        'col_AL' => '',
-                        'col_AM' => '',
-                        'col_AN' => '',
-                    ];
-    
-                    $rows[] = [
-                        // 'col_A' => '',
-                        'col_B' => '05',
-                        'col_C' => $number_index,
-                        'col_D' => $date_of_issue->format('d/m/Y'),
-                        'col_E' => $currency_type_id,
-                        'col_F' => $main_gloss,
-                        // 'col_F' => 'POR VENTA',
-                        'col_G' => $row->exchange_rate_sale,
-                        'col_H' => 'V',
-                        'col_I' => 'S',
-                        'col_J' => '',
-                        // 'col_K' => '401111',
-                        'col_K' => ($row->currency_type_id === 'PEN') ? $company_account->igv_pen : $company_account->igv_usd,
-                        'col_L' => $row->customer->number,
-                        'col_M' => '',
-                        'col_N' => 'H',
-                        'col_O' => ($row->state_type_id == 11) ? 0 : $item->total_igv,
-                        'col_P' => ($row->state_type_id == 11) ? 0 : ( ($row->currency_type_id === 'PEN') ? number_format($item->total_igv / $row->exchange_rate_sale, 2, ".", "") : $item->total_igv),
-                        'col_Q' => ($row->state_type_id == 11) ? 0 : ( ($row->currency_type_id === 'PEN') ? $item->total_igv : number_format($item->total_igv * $row->exchange_rate_sale, 2, ".", "")),
-                        'col_R' => $document_type_id,
-                        'col_S' => $row->number_full,
-                        'col_T' => $row->date_of_issue->format('d/m/Y'),
-                        'col_U' => $date_of_due,
-                        'col_V' => '',
-                        'col_W' => $document_type_id.'-'.$row->number_full,
-                        'col_X' => '',
-                        'col_Y' => '',
-                        'col_Z' => $reference_document_type_id,
-                        'col_AA' => $reference_number_full,
-                        'col_AB' => $reference_date_of_issue,
-                        'col_AC' => '',
-                        'col_AD' => $reference_total_value,
-                        'col_AE' => $reference_total_igv,
-                        'col_AF' => '',
-                        'col_AG' => '',
-                        'col_AH' => '',
-                        'col_AI' => '',
-                        'col_AJ' => '',
-                        'col_AK' => '',
-                        'col_AL' => '',
-                        'col_AM' => '',
-                        'col_AN' => '',
-                    ];
-    
-                    $rows[] = [
-                        // 'col_A' => '',
-                        'col_B' => '05',
-                        'col_C' => $number_index,
-                        'col_D' => $date_of_issue->format('d/m/Y'),
-                        'col_E' => $currency_type_id,
-                        'col_F' => $main_gloss,
-                        // 'col_F' => 'POR VENTA',
-                        'col_G' => $row->exchange_rate_sale,
-                        'col_H' => 'V',
-                        'col_I' => 'S',
-                        'col_J' => '',
-=======
->>>>>>> 53bbeb2fe9b9b4dd87620429767f59ff029281c1
                         // 'col_K' => '704101',
                         'col_K' => ($row->currency_type_id === 'PEN') ? $company_account->subtotal_pen : $company_account->subtotal_usd,
                         'col_L' => $row->customer->number,

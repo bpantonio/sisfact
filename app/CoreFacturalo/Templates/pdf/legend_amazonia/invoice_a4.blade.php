@@ -550,11 +550,7 @@
             <td>
                 <strong>PAGO: </strong>{{ $document->payment_method_type->description }}
             </td>
-<<<<<<< HEAD
-        </tr> 
-=======
         </tr>
->>>>>>> 53bbeb2fe9b9b4dd87620429767f59ff029281c1
     </table>
 @endif
 
@@ -596,9 +592,6 @@
         </tr>
 
     </table>
-<<<<<<< HEAD
-
-=======
 @endif
 @if ($document->terms_condition)
     <br>
@@ -610,7 +603,6 @@
             </td>
         </tr>
     </table>
->>>>>>> 53bbeb2fe9b9b4dd87620429767f59ff029281c1
 @endif
 </body>
 </html>

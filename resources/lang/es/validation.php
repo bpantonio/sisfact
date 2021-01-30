@@ -263,9 +263,6 @@ return [
         'devolution_reason_id' => 'motivo',
         'observation' => 'observación',
         'model' => 'modelo',
-<<<<<<< HEAD
-=======
         'internal_code' => 'código interno'
->>>>>>> 53bbeb2fe9b9b4dd87620429767f59ff029281c1
     ],
 ];

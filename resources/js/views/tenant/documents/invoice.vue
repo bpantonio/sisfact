@@ -1195,21 +1195,13 @@
                     this.form.discounts.splice(pos_exonerated, 1)
                     this.changeTotalPrepayment()
                 }
-<<<<<<< HEAD
-                
-=======
 
->>>>>>> 53bbeb2fe9b9b4dd87620429767f59ff029281c1
                 let pos_unaffected = this.form.discounts.indexOf(discount_unaffected)
                 if (pos_unaffected > -1) {
                     this.form.discounts.splice(pos_unaffected, 1)
                     this.changeTotalPrepayment()
                 }
-<<<<<<< HEAD
-                
-=======
 
->>>>>>> 53bbeb2fe9b9b4dd87620429767f59ff029281c1
             },
             getDocumentsPrepayment(){
                 this.$http.get(`/${this.resource}/prepayments/${this.form.affectation_type_prepayment}`).then((response) => {
@@ -1780,12 +1772,6 @@
                 return  {
                     error_by_item : error_by_item,
                 }
-<<<<<<< HEAD
-
-            },
-            async submit() {
-=======
->>>>>>> 53bbeb2fe9b9b4dd87620429767f59ff029281c1
 
             },
             async submit() {

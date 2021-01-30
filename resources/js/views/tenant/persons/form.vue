@@ -425,11 +425,7 @@
             validateDigits(){
 
                 const pattern_number = new RegExp('^[0-9]+$', 'i');
-<<<<<<< HEAD
-                
-=======
 
->>>>>>> 53bbeb2fe9b9b4dd87620429767f59ff029281c1
                 if (this.form.identity_document_type_id === '6') {
 
                     if(this.form.number.length !== 11){
@@ -444,11 +440,7 @@
                             success: false,
                             message: `El campo número debe contener solo números`
                         }
-<<<<<<< HEAD
-                    } 
-=======
                     }
->>>>>>> 53bbeb2fe9b9b4dd87620429767f59ff029281c1
 
                 }
 
@@ -461,36 +453,12 @@
                             message: `El campo número debe tener 8 dígitos.`
                         }
                     }
-<<<<<<< HEAD
-                    
-=======
 
->>>>>>> 53bbeb2fe9b9b4dd87620429767f59ff029281c1
                     if(!pattern_number.test(this.form.number)){
                         return {
                             success: false,
                             message: `El campo número debe contener solo números`
                         }
-<<<<<<< HEAD
-                    } 
-                }
-
-
-                if(['4', '7', '0'].includes(this.form.identity_document_type_id)){
-                    
-                    const pattern = new RegExp('^[A-Z0-9\-]+$', 'i');
-
-                    if(!pattern.test(this.form.number)){
-                        return {
-                            success: false,
-                            message: `El campo número no cumple con el formato establecido`
-                        }
-                    }
-
-                }
-
-
-=======
                     }
                 }
 
@@ -509,7 +477,6 @@
                 }
 
 
->>>>>>> 53bbeb2fe9b9b4dd87620429767f59ff029281c1
                 return {
                     success: true
                 }

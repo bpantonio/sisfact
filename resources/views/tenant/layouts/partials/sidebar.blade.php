@@ -24,7 +24,7 @@
                     @if(in_array('dashboard', $vc_modules))
                     <li class="{{ ($path[0] === 'dashboard')?'nav-active':'' }}">
                         <a class="nav-link" href="{{ route('tenant.dashboard.index') }}">
-                            <span class="float-right badge badge-red badge-danger mr-3"></span>
+                            <span class="float-right badge badge-red badge-danger mr-3">Nuevo</span>
                             <i class="fas fa-tachometer-alt" aria-hidden="true"></i>
                             <span>DASHBOARD</span>
                         </a>
@@ -297,7 +297,7 @@
                         {{ ($path[0] === 'item-sets')?'nav-active nav-expanded':'' }}
                         ">
                             <a class="nav-link" href="#">
-                                <span class="float-right badge badge-red badge-danger mr-3"></span>
+                                <span class="float-right badge badge-red badge-danger mr-3">Nuevo</span>
                                 <i class="fas fa-cash-register" aria-hidden="true"></i>
                                 <span>POS</span>
                             </a>
@@ -327,7 +327,7 @@
                     @if(in_array('ecommerce', $vc_modules))
                     <li class="nav-parent {{ in_array($path[0], ['ecommerce','items_ecommerce', 'tags', 'promotions', 'orders', 'configuration'])?'nav-active nav-expanded':'' }}">
                         <a class="nav-link" href="#">
-                            <span class="float-right badge badge-red badge-danger mr-3"></span>
+                            <span class="float-right badge badge-red badge-danger mr-3">Nuevo</span>
                             <i class="fas fa-store" aria-hidden="true"></i>
                             <span>Tienda Virtual</span>
                         </a>
@@ -767,7 +767,7 @@
                         {{ ($path[0] === 'account')?'nav-active nav-expanded':'' }}
                         ">
                         <a class="nav-link" href="#">
-                            <span class="float-right badge badge-red badge-danger mr-3"></span>
+                            <span class="float-right badge badge-red badge-danger mr-3">Nuevo</span>
                             <i class="fas fa-chart-bar" aria-hidden="true"></i>
                             <span>Contabilidad</span>
                         </a>
@@ -800,7 +800,7 @@
                                             ? 'nav-active nav-expanded' : ''}}">
 
                         <a class="nav-link" href="#">
-                            <span class="float-right badge badge-red badge-danger mr-3"></span>
+                            <span class="float-right badge badge-red badge-danger mr-3">Nuevo</span>
                             <i class="fas fa-hand-holding-usd" aria-hidden="true"></i>
                             <span>Finanzas</span>
                         </a>
@@ -926,7 +926,7 @@
                     <li class=" nav-parent
                         {{ ($path[0] === 'cuenta')?'nav-active nav-expanded':'' }}">
                         <a class="nav-link" href="#">
-                            <span class="float-right badge badge-red badge-danger mr-3"></span>
+                            <span class="float-right badge badge-red badge-danger mr-3">Nuevo</span>
                             <i class="fas fa-dollar-sign" aria-hidden="true"></i>
                             <span>Mis Pagos</span>
                         </a>

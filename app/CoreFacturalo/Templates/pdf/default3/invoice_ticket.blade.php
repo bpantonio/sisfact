@@ -459,11 +459,7 @@
             <td class="desc pt-5">
                 <strong>PAGO: </strong>{{ $document->payment_method_type->description }}
             </td>
-<<<<<<< HEAD
-        </tr> 
-=======
         </tr>
->>>>>>> 53bbeb2fe9b9b4dd87620429767f59ff029281c1
     @endif
     @if($payments->count())
         <tr>
@@ -486,9 +482,6 @@
                 </tr>
 
         </tr>
-<<<<<<< HEAD
-
-=======
     @if ($document->terms_condition)
         <tr>
             <td class="desc">
@@ -499,7 +492,6 @@
             </td>
         </tr>
     @endif
->>>>>>> 53bbeb2fe9b9b4dd87620429767f59ff029281c1
     <tr>
         <td class="text-center desc pt-5">Para consultar el comprobante ingresar a {!! url('/buscar') !!}</td>
     </tr>

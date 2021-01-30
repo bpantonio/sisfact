@@ -381,8 +381,6 @@
         @endforeach
     @endif
 
-<<<<<<< HEAD
-=======
     @if ($document->terms_condition)
         <tr>
             <td class="desc pt-5">
@@ -392,7 +390,6 @@
         </tr>
     @endif
 
->>>>>>> 53bbeb2fe9b9b4dd87620429767f59ff029281c1
     <tr>
         <td class="text-center desc pt-5">Para consultar el comprobante ingresar a {!! url('/buscar') !!}</td>
     </tr>
