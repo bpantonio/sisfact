@@ -550,7 +550,11 @@
             <td>
                 <strong>PAGO: </strong>{{ $document->payment_method_type->description }}
             </td>
+<<<<<<< HEAD
         </tr> 
+=======
+        </tr>
+>>>>>>> 53bbeb2fe9b9b4dd87620429767f59ff029281c1
     </table>
 @endif
 
@@ -592,7 +596,21 @@
         </tr>
 
     </table>
+<<<<<<< HEAD
 
+=======
+@endif
+@if ($document->terms_condition)
+    <br>
+    <table class="full-width">
+        <tr>
+            <td>
+                <h6 style="font-size: 12px; font-weight: bold;">Términos y condiciones del servicio</h6>
+                {!! $document->terms_condition !!}
+            </td>
+        </tr>
+    </table>
+>>>>>>> 53bbeb2fe9b9b4dd87620429767f59ff029281c1
 @endif
 </body>
 </html>

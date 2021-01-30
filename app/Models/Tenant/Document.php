@@ -86,7 +86,11 @@ class Document extends ModelTenant
         'response_regularize_shipping',
         'seller_id',
         'reference_data',
+<<<<<<< HEAD
 
+=======
+        'terms_condition',
+>>>>>>> 53bbeb2fe9b9b4dd87620429767f59ff029281c1
     ];
 
     protected $casts = [

@@ -134,7 +134,11 @@
             <td class="align-top"><p class="desc">D. Referencia:</p></td>
             <td>
                 <p class="desc">
+<<<<<<< HEAD
                     {{ $document->reference_data }} 
+=======
+                    {{ $document->reference_data }}
+>>>>>>> 53bbeb2fe9b9b4dd87620429767f59ff029281c1
                 </p>
             </td>
         </tr>
@@ -191,7 +195,11 @@
             <td><p class="desc">{{ $document->detraction->delivery_location_id[2] }}</p></td>
         </tr>
         <tr>
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> 53bbeb2fe9b9b4dd87620429767f59ff029281c1
             <td  class="align-top"><p class="desc">Dirección destino:</p></td>
             <td><p class="desc">{{ $document->detraction->delivery_address }}</p></td>
         </tr>
@@ -200,7 +208,11 @@
             <td><p class="desc">{{ $document->detraction->reference_value_service }}</p></td>
         </tr>
         <tr>
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> 53bbeb2fe9b9b4dd87620429767f59ff029281c1
             <td  class="align-top"><p class="desc">Valor referencia carga efectiva:</p></td>
             <td><p class="desc">{{ $document->detraction->reference_value_effective_load }}</p></td>
         </tr>
@@ -520,7 +532,7 @@
             <td class="desc pt-5">
                 <strong>PAGO: </strong>{{ $document->payment_method_type->description }}
             </td>
-        </tr> 
+        </tr>
     @endif
     @if($payments->count())
         <tr>
@@ -537,12 +549,23 @@
 
     <tr>
         <td class="desc pt-2">
-        <strong>Vendedor:</strong> </td></tr>
-                <tr>
-                    <td class="desc">{{ $document->user->name }}</td>
-                </tr>
+        <strong>Vendedor:</strong> </td>
+    </tr>
+    <tr>
+        <td class="desc">{{ $document->user->name }}</td>
+    </tr>
 
+    @if ($document->terms_condition)
+        <tr>
+            <td class="desc">
+                <br>
+                <h6 style="font-size: 10px; font-weight: bold;">Términos y condiciones del servicio</h6>
+                {!! $document->terms_condition !!}
+            </td>
         </tr>
+    @endif
+
+    </tr>
 
     <tr>
         <td class="text-center desc pt-5">Para consultar el comprobante ingresar a {!! url('/buscar') !!}</td>

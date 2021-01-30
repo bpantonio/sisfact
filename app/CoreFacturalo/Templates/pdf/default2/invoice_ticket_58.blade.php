@@ -381,6 +381,18 @@
         @endforeach
     @endif
 
+<<<<<<< HEAD
+=======
+    @if ($document->terms_condition)
+        <tr>
+            <td class="desc pt-5">
+                <h6 style="font-size: 10px; font-weight: bold;">Términos y condiciones del servicio</h6>
+                {!! $document->terms_condition !!}
+            </td>
+        </tr>
+    @endif
+
+>>>>>>> 53bbeb2fe9b9b4dd87620429767f59ff029281c1
     <tr>
         <td class="text-center desc pt-5">Para consultar el comprobante ingresar a {!! url('/buscar') !!}</td>
     </tr>

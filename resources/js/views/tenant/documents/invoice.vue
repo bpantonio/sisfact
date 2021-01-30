@@ -470,6 +470,11 @@
                                                 </div>
                                             </template>
 
+                                            <div class="col-12">
+                                                <br>
+                                                <span class="mr-3">Mostrar términos y condiciones.</span>
+                                                <el-switch v-model="form.show_terms_condition"></el-switch>
+                                            </div>
                                         </div>
                                     </el-collapse-item>
                                 </el-collapse>
@@ -1190,13 +1195,21 @@
                     this.form.discounts.splice(pos_exonerated, 1)
                     this.changeTotalPrepayment()
                 }
+<<<<<<< HEAD
                 
+=======
+
+>>>>>>> 53bbeb2fe9b9b4dd87620429767f59ff029281c1
                 let pos_unaffected = this.form.discounts.indexOf(discount_unaffected)
                 if (pos_unaffected > -1) {
                     this.form.discounts.splice(pos_unaffected, 1)
                     this.changeTotalPrepayment()
                 }
+<<<<<<< HEAD
                 
+=======
+
+>>>>>>> 53bbeb2fe9b9b4dd87620429767f59ff029281c1
             },
             getDocumentsPrepayment(){
                 this.$http.get(`/${this.resource}/prepayments/${this.form.affectation_type_prepayment}`).then((response) => {
@@ -1345,6 +1358,8 @@
                     customer_address_id:null,
                     pending_amount_prepayment:0,
                     payment_method_type_id:null,
+                    show_terms_condition: true,
+                    terms_condition: ''
                 }
 
                 this.form_cash_document = {
@@ -1765,10 +1780,18 @@
                 return  {
                     error_by_item : error_by_item,
                 }
+<<<<<<< HEAD
 
             },
             async submit() {
+=======
+>>>>>>> 53bbeb2fe9b9b4dd87620429767f59ff029281c1
 
+            },
+            async submit() {
+                if (this.form.show_terms_condition) {
+                    this.form.terms_condition = this.configuration.terms_condition_sale;
+                }
                 if(this.form.has_prepayment || this.prepayment_deduction){
                     let error_prepayment = await this.validateAffectationTypePrepayment()
                     if(!error_prepayment.success)

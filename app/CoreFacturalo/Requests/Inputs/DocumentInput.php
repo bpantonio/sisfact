@@ -127,6 +127,10 @@ class DocumentInput
             'send_server' => false,
             'payment_method_type_id' => Functions::valueKeyInArray($inputs, 'payment_method_type_id'),
             'reference_data' => Functions::valueKeyInArray($inputs, 'reference_data'),
+<<<<<<< HEAD
+=======
+            'terms_condition' => $inputs['terms_condition'] ?? '',
+>>>>>>> 53bbeb2fe9b9b4dd87620429767f59ff029281c1
         ];
     }
 
